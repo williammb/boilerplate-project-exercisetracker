@@ -95,15 +95,15 @@ app.get('/api/exercise/log', async(req, res) => {
     if (userId.match(/^[0-9a-fA-F]{24}$/)) {
         const user = await UserObj.findOne({ _id: userId });
         if (user) {
-            exercises = await ExerciseObj.find({ userId: userId });
+            let exercises = await ExerciseObj.find({ userId: userId });
             if (from !== null) {
                 exercises = exercises.filter(obj => {
-                    return obj[date] >= new Date(from);
+                    return obj['date'] >= new Date(from);
                 })
             }
             if (to !== null) {
                 exercises = exercises.filter(obj => {
-                    return obj[date] <= new Date(to);
+                    return obj['date'] <= new Date(to);
                 })
             }
             if (limit !== null) {
